@@ -9,11 +9,11 @@
   --subtext: #6b7db3;
   --muted: #b0b8d0;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
   --radius-lg: 20px;
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
-  --shadow-glow: 0 0 24px rgba(76, 175, 80, 0.15);
+  --shadow-glow: 0 0 24px rgba(76, 175, 80, 0.18);
 }
 
 * {
@@ -61,9 +61,10 @@ a {
 
 .pcb-btn-primary {
   display: inline-block;
-  background: linear-gradient(135deg, var(--pc-green), #3d8b40);
+  /* Exact gradient from App.js: linear-gradient(135deg, PC, AC) — green to gold */
+  background: linear-gradient(135deg, var(--pc-green), var(--pc-gold));
   color: var(--bg);
-  padding: 12px 28px;
+  padding: 13px 28px;
   border-radius: var(--radius-sm);
   font-weight: 700;
   text-decoration: none;

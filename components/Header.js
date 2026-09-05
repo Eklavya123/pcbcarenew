@@ -25,12 +25,11 @@ export default function Header() {
         }}
       >
         <Link href="/" style={{ display: "flex", alignItems: "center" }}>
-          {/* Real logo file — replaces the earlier text-only placeholder */}
           <Image
-            src="/logo.png"
+            src="/logo.webp"
             alt={`${BUSINESS.name} logo`}
-            width={160}
-            height={81}
+            width={500}
+            height={253}
             priority
             style={{ height: 44, width: "auto" }}
           />
