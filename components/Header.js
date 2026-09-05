@@ -1,12 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BUSINESS, SHOP_URL } from "../lib/constants";
 
 export default function Header() {
   return (
     <header
       style={{
-        background: "#0a0d14",
-        borderBottom: "1px solid #2a3050",
+        background: "var(--bg)",
+        borderBottom: "1px solid var(--border)",
         position: "sticky",
         top: 0,
         zIndex: 50,
@@ -16,37 +17,33 @@ export default function Header() {
         style={{
           maxWidth: 1100,
           margin: "0 auto",
-          padding: "14px 20px",
+          padding: "10px 20px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: 16,
         }}
       >
-        <Link
-          href="/"
-          style={{
-            color: "#ffffff",
-            fontWeight: 800,
-            fontSize: 20,
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          <span style={{ color: "#4caf50" }}>PCB</span>
-          <span style={{ color: "#ffd700" }}>care</span>
+        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+          {/* Real logo file — replaces the earlier text-only placeholder */}
+          <Image
+            src="/logo.png"
+            alt={`${BUSINESS.name} logo`}
+            width={160}
+            height={81}
+            priority
+            style={{ height: 44, width: "auto" }}
+          />
         </Link>
-        <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 22, alignItems: "center", flexWrap: "wrap" }}>
           <Link href="/blog" style={navLinkStyle}>Blog</Link>
           <Link href="/wiring" style={navLinkStyle}>Wiring Diagrams</Link>
           {BUSINESS.phone && (
-            <a href={`tel:${BUSINESS.phone}`} style={ctaStyle}>
+            <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-primary" style={{ padding: "8px 18px", fontSize: 14 }}>
               Call {BUSINESS.phone}
             </a>
           )}
-          <a href={SHOP_URL} style={{ ...navLinkStyle, opacity: 0.8 }}>
+          <a href={SHOP_URL} style={{ ...navLinkStyle, opacity: 0.75 }}>
             Technician Tools ↗
           </a>
         </div>
@@ -56,18 +53,9 @@ export default function Header() {
 }
 
 const navLinkStyle = {
-  color: "#b0b8d0",
+  color: "var(--muted)",
   textDecoration: "none",
   fontSize: 14,
   fontWeight: 500,
-};
-
-const ctaStyle = {
-  background: "#4caf50",
-  color: "#0a0d14",
-  padding: "8px 16px",
-  borderRadius: 8,
-  textDecoration: "none",
-  fontWeight: 700,
-  fontSize: 14,
+  fontFamily: "var(--font-heading)",
 };

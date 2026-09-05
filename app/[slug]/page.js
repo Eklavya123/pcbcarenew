@@ -4,6 +4,7 @@ import { getPageBySlug, getPublishedPages } from "../../lib/supabase";
 import JsonLd from "../../components/JsonLd";
 import FaqAccordion from "../../components/FaqAccordion";
 import ServiceAreaList from "../../components/ServiceAreaList";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 // This only catches slugs that don't match a more specific route first
 // (Next.js resolves /blog, /wiring etc. before falling through to this file
@@ -29,18 +30,21 @@ export default async function StaticPage({ params }) {
   const page = await getPageBySlug(params.slug);
   if (!page) notFound();
 
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: page.title, path: `/${page.slug}` },
+  ];
+
   const schema = [
     page.schema_type === "service" ? serviceSchema(page) : webPageSchema(page),
-    breadcrumbSchema([
-      { name: "Home", path: "/" },
-      { name: page.title, path: `/${page.slug}` },
-    ]),
+    breadcrumbSchema(crumbs),
     faqSchema(page.faqs),
   ];
 
   return (
     <article>
       <JsonLd data={schema} />
+      <Breadcrumbs items={crumbs} />
       <h1 style={{ color: "#ffffff", fontSize: 28, marginBottom: 16 }}>{page.title}</h1>
       {/* content is admin-authored HTML, same trust boundary as blog posts — see note there */}
       <div

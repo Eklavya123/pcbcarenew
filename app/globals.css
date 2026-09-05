@@ -1,0 +1,85 @@
+:root {
+  /* Exact values pulled from App.js's theme object (PC, AC, and T constants) */
+  --pc-green: #4caf50;
+  --pc-gold: #ffd700;
+  --bg: #0a0d14;
+  --card: #1a1f2e;
+  --border: #2a3050;
+  --text: #ffffff;
+  --subtext: #6b7db3;
+  --muted: #b0b8d0;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 24px rgba(76, 175, 80, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--pc-gold);
+  color: var(--bg);
+}
+
+/* Subtle circuit-inspired accent used behind hero/section headers —
+   references the shield-and-circuit logo motif without copying it. */
+.pcb-accent-line {
+  height: 3px;
+  width: 56px;
+  background: linear-gradient(90deg, var(--pc-green), var(--pc-gold));
+  border-radius: 3px;
+}
+
+.pcb-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.pcb-card:hover {
+  border-color: var(--pc-green);
+  transform: translateY(-2px);
+}
+
+.pcb-btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--pc-green), #3d8b40);
+  color: var(--bg);
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  box-shadow: var(--shadow-glow);
+}
+
+.pcb-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.pcb-chip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+}

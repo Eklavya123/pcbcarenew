@@ -12,11 +12,20 @@ export const metadata = buildMetadata({
 export default function HomePage() {
   return (
     <div>
-      <section style={{ padding: "48px 0", textAlign: "center" }}>
-        <h1 style={{ color: "#ffffff", fontSize: 32, marginBottom: 12 }}>
+      <section style={{ padding: "56px 0 48px", textAlign: "center" }}>
+        <div className="pcb-accent-line" style={{ margin: "0 auto 18px" }} />
+        <h1
+          style={{
+            color: "var(--text)",
+            fontFamily: "var(--font-heading)",
+            fontWeight: 800,
+            fontSize: 34,
+            marginBottom: 14,
+          }}
+        >
           Appliance PCB Repair in Jabalpur
         </h1>
-        <p style={{ color: "#b0b8d0", fontSize: 16, maxWidth: 560, margin: "0 auto 24px" }}>
+        <p style={{ color: "var(--muted)", fontSize: 16, maxWidth: 560, margin: "0 auto 28px", lineHeight: 1.6 }}>
           {/* TODO: replace with real business copy — a couple of sentences on
               what makes this business trustworthy (years in business, number
               of repairs, brands serviced, warranty terms). Placeholder below
@@ -25,39 +34,36 @@ export default function HomePage() {
           original parts and a warranty on every board.
         </p>
         {BUSINESS.phone && (
-          <a
-            href={`tel:${BUSINESS.phone}`}
-            style={{
-              display: "inline-block",
-              background: "#4caf50",
-              color: "#0a0d14",
-              padding: "12px 28px",
-              borderRadius: 10,
-              fontWeight: 700,
-              textDecoration: "none",
-            }}
-          >
+          <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-primary">
             Call {BUSINESS.phone}
           </a>
         )}
       </section>
 
       <section style={{ padding: "32px 0" }}>
-        <h2 style={{ color: "#ffffff", fontSize: 22, marginBottom: 20 }}>Our Services</h2>
+        <h2
+          style={{
+            color: "var(--text)",
+            fontFamily: "var(--font-heading)",
+            fontSize: 22,
+            marginBottom: 20,
+          }}
+        >
+          Our Services
+        </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
           {SERVICES.map((s) => (
             <Link
               key={s.slug}
               href={`/${s.slug}`}
+              className="pcb-card"
               style={{
                 display: "block",
-                background: "#1a1f2e",
-                border: "1px solid #2a3050",
-                borderRadius: 12,
-                padding: 20,
-                color: "#ffffff",
+                padding: 22,
+                color: "var(--text)",
                 textDecoration: "none",
-                fontWeight: 600,
+                fontWeight: 700,
+                fontFamily: "var(--font-heading)",
               }}
             >
               {s.name}
@@ -72,20 +78,19 @@ export default function HomePage() {
 
       {SERVICE_AREAS.length > 0 && (
         <section style={{ padding: "32px 0" }}>
-          <h2 style={{ color: "#ffffff", fontSize: 22, marginBottom: 16 }}>Areas We Serve</h2>
+          <h2
+            style={{
+              color: "var(--text)",
+              fontFamily: "var(--font-heading)",
+              fontSize: 22,
+              marginBottom: 16,
+            }}
+          >
+            Areas We Serve
+          </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             {SERVICE_AREAS.map((area) => (
-              <span
-                key={area.slug}
-                style={{
-                  background: "#1a1f2e",
-                  border: "1px solid #2a3050",
-                  color: "#b0b8d0",
-                  padding: "6px 14px",
-                  borderRadius: 20,
-                  fontSize: 13,
-                }}
-              >
+              <span key={area.slug} className="pcb-chip">
                 {area.name}
               </span>
             ))}

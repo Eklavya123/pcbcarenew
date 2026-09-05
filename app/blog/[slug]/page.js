@@ -3,6 +3,7 @@ import { buildMetadata, blogPostingSchema, breadcrumbSchema, faqSchema } from ".
 import { getPostBySlug, getPublishedPosts } from "../../../lib/supabase";
 import JsonLd from "../../../components/JsonLd";
 import FaqAccordion from "../../../components/FaqAccordion";
+import Breadcrumbs from "../../../components/Breadcrumbs";
 
 // Pre-builds every published post at build time — this is the actual SSG
 // step. Combined with the revalidate window in lib/supabase.js, new posts
@@ -27,19 +28,22 @@ export default async function BlogPostPage({ params }) {
   const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ];
+
   const schema = [
     blogPostingSchema(post),
-    breadcrumbSchema([
-      { name: "Home", path: "/" },
-      { name: "Blog", path: "/blog" },
-      { name: post.title, path: `/blog/${post.slug}` },
-    ]),
+    breadcrumbSchema(crumbs),
     faqSchema(post.faqs),
   ];
 
   return (
     <article>
       <JsonLd data={schema} />
+      <Breadcrumbs items={crumbs} />
       <h1 style={{ color: "#ffffff", fontSize: 28, marginBottom: 16 }}>{post.title}</h1>
       {/*
         content is admin-authored HTML from the paste-import workflow already

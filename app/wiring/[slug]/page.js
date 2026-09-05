@@ -4,6 +4,7 @@ import { buildMetadata, breadcrumbSchema } from "../../../lib/seo";
 import { getWiringDiagramBySlug, getWiringDiagrams, getShopProductsByIds } from "../../../lib/supabase";
 import { SHOP_URL } from "../../../lib/constants";
 import JsonLd from "../../../components/JsonLd";
+import Breadcrumbs from "../../../components/Breadcrumbs";
 
 export async function generateStaticParams() {
   const diagrams = await getWiringDiagrams().catch(() => []);
@@ -32,15 +33,18 @@ export default async function WiringDiagramPage({ params }) {
 
   const linkedProducts = await getShopProductsByIds(diagram.linked_product_ids);
 
-  const schema = breadcrumbSchema([
+  const crumbs = [
     { name: "Home", path: "/" },
     { name: "Wiring Diagrams", path: "/wiring" },
     { name: diagram.title, path: `/wiring/${diagram.slug}` },
-  ]);
+  ];
+
+  const schema = breadcrumbSchema(crumbs);
 
   return (
     <article>
       <JsonLd data={schema} />
+      <Breadcrumbs items={crumbs} />
       <div style={{ color: "#ffd700", fontSize: 13, marginBottom: 8 }}>{diagram.category}</div>
       <h1 style={{ color: "#ffffff", fontSize: 26, marginBottom: 16 }}>{diagram.title}</h1>
       {diagram.image_url && (
