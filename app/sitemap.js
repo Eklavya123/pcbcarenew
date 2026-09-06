@@ -1,6 +1,10 @@
 import { SITE_URL } from "../lib/constants";
 import { getPublishedPosts, getPublishedPages, getWiringDiagrams } from "../lib/supabase";
 
+// Without this, sitemap.xml only regenerates on redeploy — new pages
+// wouldn't appear in it even though the pages themselves go live via ISR.
+export const revalidate = 3600;
+
 // Next.js serves whatever this returns at /sitemap.xml automatically — no
 // /api/sitemap function needed on this domain (that one stays on
 // shop.pcbcare.in for its own products). This is the fix for "no sitemap.xml

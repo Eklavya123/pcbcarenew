@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { buildMetadata } from "../lib/seo";
 import { BUSINESS, SERVICES, SERVICE_AREAS } from "../lib/constants";
 
@@ -12,7 +13,20 @@ export const metadata = buildMetadata({
 export default function HomePage() {
   return (
     <div>
-      <section style={{ padding: "56px 0 48px", textAlign: "center" }}>
+      <section style={{ padding: "48px 0 40px", textAlign: "center" }}>
+        {/* Large hero logo — full-resolution lockup (1376x698 source), not
+            the small header copy, so it stays sharp at this size instead of
+            upscaling the compressed logo.webp used in the nav bar. */}
+        <div style={{ position: "relative", width: "100%", maxWidth: 420, height: 213, margin: "0 auto 8px" }}>
+          <Image
+            src="/logo.png"
+            alt={`${BUSINESS.name} logo`}
+            fill
+            priority
+            style={{ objectFit: "contain" }}
+            sizes="(max-width: 480px) 90vw, 420px"
+          />
+        </div>
         <div className="pcb-accent-line" style={{ margin: "0 auto 18px" }} />
         <h1 style={{ color: "var(--text)", fontWeight: 700, fontSize: 32, marginBottom: 14 }}>
           Appliance PCB Repair in Jabalpur

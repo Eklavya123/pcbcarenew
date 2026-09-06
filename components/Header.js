@@ -36,7 +36,6 @@ export default function Header() {
         </Link>
         <div style={{ display: "flex", gap: 22, alignItems: "center", flexWrap: "wrap" }}>
           <Link href="/blog" style={navLinkStyle}>Blog</Link>
-          <Link href="/wiring" style={navLinkStyle}>Wiring Diagrams</Link>
           {BUSINESS.phone && (
             <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-primary" style={{ padding: "8px 18px", fontSize: 14 }}>
               Call {BUSINESS.phone}
