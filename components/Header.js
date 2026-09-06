@@ -36,8 +36,15 @@ export default function Header() {
         </Link>
         <div style={{ display: "flex", gap: 22, alignItems: "center", flexWrap: "wrap" }}>
           <Link href="/blog" style={navLinkStyle}>Blog</Link>
+          <a
+            href={`${SHOP_URL}/shop`}
+            className="pcb-btn-primary"
+            style={{ padding: "8px 20px", fontSize: 14 }}
+          >
+            Shop PCBs
+          </a>
           {BUSINESS.phone && (
-            <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-primary" style={{ padding: "8px 18px", fontSize: 14 }}>
+            <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-secondary">
               Call {BUSINESS.phone}
             </a>
           )}
@@ -55,5 +62,4 @@ const navLinkStyle = {
   textDecoration: "none",
   fontSize: 14,
   fontWeight: 500,
-  fontFamily: "var(--font-heading)",
 };
