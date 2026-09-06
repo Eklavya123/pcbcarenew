@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { buildMetadata } from "../lib/seo";
 import { BUSINESS, SERVICES, SERVICE_AREAS } from "../lib/constants";
+import Testimonials from "../components/Testimonials";
+import LocationMap from "../components/LocationMap";
 
 export const metadata = buildMetadata({
   title: `${BUSINESS.name} — Appliance PCB Repair in Jabalpur`,
@@ -132,6 +134,13 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      <Testimonials />
+
+      <section style={{ padding: "16px 0 40px" }}>
+        <h2 style={{ color: "var(--text)", fontSize: 22, marginBottom: 16 }}>Find Us</h2>
+        <LocationMap />
+      </section>
     </div>
   );
 }

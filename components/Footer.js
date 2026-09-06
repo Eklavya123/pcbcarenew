@@ -23,7 +23,7 @@ export default function Footer() {
         }}
       >
         <div>
-          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 6, fontFamily: "var(--font-heading)" }}>
+          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 6 }}>
             {BUSINESS.name}
           </div>
           <div>{BUSINESS.tagline}</div>
@@ -47,12 +47,11 @@ export default function Footer() {
           )}
         </div>
 
-        {/* Real links to every service page — this is deliberate, not
-            decorative: a link from every page on the site to every service
-            page gives crawlers a direct path to them beyond sitemap.xml,
-            and spreads internal link equity to the highest-value pages. */}
+        {/* Real links to every service page — a link from every page on the
+            site to every service page gives crawlers a direct path to them
+            beyond sitemap.xml, and spreads internal link equity. */}
         <div>
-          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 10, fontFamily: "var(--font-heading)" }}>
+          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 10 }}>
             Services
           </div>
           {SERVICES.map((s) => (
@@ -65,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 10, fontFamily: "var(--font-heading)" }}>
+          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 10 }}>
             Resources
           </div>
           <div style={{ marginBottom: 6 }}>
@@ -73,6 +72,26 @@ export default function Footer() {
           </div>
           <div style={{ marginBottom: 6 }}>
             <Link href="/wiring" style={{ color: "var(--subtext)", textDecoration: "none" }}>Wiring Diagrams</Link>
+          </div>
+          {/* Direct link to the real sitemap file, not just a Search-Console-only
+              artifact — some directories/crawlers and curious humans do check this. */}
+          <div style={{ marginBottom: 6 }}>
+            <a href="/sitemap.xml" style={{ color: "var(--subtext)", textDecoration: "none" }}>Sitemap</a>
+          </div>
+        </div>
+
+        <div>
+          <div style={{ color: "var(--text)", fontWeight: 700, marginBottom: 10 }}>
+            Legal
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <Link href="/contact" style={{ color: "var(--subtext)", textDecoration: "none" }}>Contact Us</Link>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <Link href="/terms-and-conditions" style={{ color: "var(--subtext)", textDecoration: "none" }}>Terms &amp; Conditions</Link>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <Link href="/return-refund-policy" style={{ color: "var(--subtext)", textDecoration: "none" }}>Return &amp; Refund Policy</Link>
           </div>
         </div>
       </div>

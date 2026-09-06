@@ -41,13 +41,8 @@ export default function Header() {
             className="pcb-btn-primary"
             style={{ padding: "8px 20px", fontSize: 14 }}
           >
-            Buy PCBs
+            Shop PCBs
           </a>
-          {BUSINESS.phone && (
-            <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-secondary">
-              Call {BUSINESS.phone}
-            </a>
-          )}
           <a href={SHOP_URL} style={{ ...navLinkStyle, opacity: 0.75 }}>
             Technician Tools ↗
           </a>
