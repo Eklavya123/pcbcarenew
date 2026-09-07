@@ -30,7 +30,6 @@ export default function Header() {
             alt={`${BUSINESS.name} logo`}
             width={500}
             height={253}
-            priority
             style={{ height: 44, width: "auto" }}
           />
         </Link>

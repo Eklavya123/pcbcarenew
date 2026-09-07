@@ -26,7 +26,7 @@ export const metadata = {
     template: `%s | ${BUSINESS.name}`,
   },
   description:
-    "PCBCare - Appliance PCB repair, error codes, wiring diagrams and parts lookup for technicians.",
+    "PCB repair for AC, washing machine, refrigerator and microwave in Jabalpur. Original parts, tested boards, warranty included.",
   manifest: "/manifest.json",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "PCB Care" },
 };
