@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { buildMetadata } from "../lib/seo";
-import { BUSINESS, SERVICES, SERVICE_AREAS, WHATSAPP_URL, SHOP_URL } from "../lib/constants";
+import { BUSINESS, SERVICES, SERVICE_AREAS, WHATSAPP_URL } from "../lib/constants";
+import ProductCategoryCards from "../components/ProductCategoryCards";
 import Testimonials from "../components/Testimonials";
 import LocationMap from "../components/LocationMap";
 
@@ -81,45 +82,18 @@ export default function HomePage() {
       </section>
 
       {/* Distinct "we also sell" section — separate from the repair
-          services grid below, so the homepage doesn't read as repair-only.
-          TODO: swap the icon/placeholder below for real photos of PCBs you
-          stock once you send them — real product photos will do more here
-          than anything generic. */}
-      <section style={{ padding: "8px 0 40px" }}>
-        <div
-          className="pcb-card"
-          style={{
-            padding: 28,
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            gap: 24,
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ flex: "1 1 260px" }}>
-            <div style={{ color: "var(--pc-gold)", fontSize: 12, fontWeight: 700, letterSpacing: 0.5, marginBottom: 6 }}>
-              ALSO AVAILABLE
-            </div>
-            <h2 style={{ color: "var(--text)", fontSize: 22, marginBottom: 10 }}>
-              Buy Tested Replacement PCBs
-            </h2>
-            <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.6, maxWidth: 440 }}>
-              {/* TODO: replace with real specifics — which brands/models you
-                  stock, whether boards are new or refurbished-and-tested. */}
-              Don't want to wait on a repair? We also sell pre-tested PCB
-              boards for AC, washing machine, refrigerator and microwave —
-              shipped anywhere in India.
-            </p>
+          services grid above, so the homepage doesn't read as repair-only.
+          Each card's image path is defined in lib/constants.js
+          (PRODUCT_CATEGORIES) — drop a real photo at that exact path in
+          /public/products/ and it replaces the placeholder automatically. */}
+      <section style={{ padding: "8px 0 48px" }}>
+        <div style={{ marginBottom: 20 }}>
+          <div style={{ color: "var(--pc-gold)", fontSize: 12, fontWeight: 700, letterSpacing: 0.5, marginBottom: 6 }}>
+            ALSO AVAILABLE
           </div>
-          <a
-            href={`${SHOP_URL}/shop`}
-            className="pcb-btn-primary"
-            style={{ flexShrink: 0 }}
-          >
-            Buy PCBs
-          </a>
+          <h2 style={{ color: "var(--text)", fontSize: 22 }}>Buy Tested Replacement PCBs</h2>
         </div>
+        <ProductCategoryCards />
       </section>
 
       {SERVICE_AREAS.length > 0 && (
