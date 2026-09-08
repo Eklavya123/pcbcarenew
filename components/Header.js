@@ -40,7 +40,7 @@ export default function Header() {
             className="pcb-btn-primary"
             style={{ padding: "8px 20px", fontSize: 14 }}
           >
-            Shop PCBs
+            Buy PCBs
           </a>
           <a href={SHOP_URL} style={{ ...navLinkStyle, opacity: 0.75 }}>
             Technician Tools ↗

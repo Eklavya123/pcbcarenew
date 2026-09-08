@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { buildMetadata } from "../lib/seo";
-import { BUSINESS, SERVICES, SERVICE_AREAS } from "../lib/constants";
+import { BUSINESS, SERVICES, SERVICE_AREAS, WHATSAPP_URL, SHOP_URL } from "../lib/constants";
 import Testimonials from "../components/Testimonials";
 import LocationMap from "../components/LocationMap";
 
@@ -38,9 +38,9 @@ export default function HomePage() {
           AC, washing machine, refrigerator and microwave PCB repair with
           original parts and a warranty on every board.
         </p>
-        {BUSINESS.phone && (
-          <a href={`tel:${BUSINESS.phone}`} className="pcb-btn-primary">
-            Call {BUSINESS.phone}
+        {WHATSAPP_URL && (
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="pcb-btn-primary">
+            Chat on WhatsApp
           </a>
         )}
       </section>
@@ -78,6 +78,48 @@ export default function HomePage() {
             app/[slug]/page.js against the `pages` table — create a matching
             published row with that exact slug in the admin panel, or the
             link 404s. */}
+      </section>
+
+      {/* Distinct "we also sell" section — separate from the repair
+          services grid below, so the homepage doesn't read as repair-only.
+          TODO: swap the icon/placeholder below for real photos of PCBs you
+          stock once you send them — real product photos will do more here
+          than anything generic. */}
+      <section style={{ padding: "8px 0 40px" }}>
+        <div
+          className="pcb-card"
+          style={{
+            padding: 28,
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: 24,
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ flex: "1 1 260px" }}>
+            <div style={{ color: "var(--pc-gold)", fontSize: 12, fontWeight: 700, letterSpacing: 0.5, marginBottom: 6 }}>
+              ALSO AVAILABLE
+            </div>
+            <h2 style={{ color: "var(--text)", fontSize: 22, marginBottom: 10 }}>
+              Buy Tested Replacement PCBs
+            </h2>
+            <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.6, maxWidth: 440 }}>
+              {/* TODO: replace with real specifics — which brands/models you
+                  stock, whether boards are new or refurbished-and-tested. */}
+              Don't want to wait on a repair? We also sell pre-tested PCB
+              boards for AC, washing machine, refrigerator and microwave —
+              shipped anywhere in India.
+            </p>
+          </div>
+          <a
+            href={`${SHOP_URL}/shop`}
+            className="pcb-btn-primary"
+            style={{ flexShrink: 0 }}
+          >
+            Buy PCBs
+          </a>
+        </div>
       </section>
 
       {SERVICE_AREAS.length > 0 && (

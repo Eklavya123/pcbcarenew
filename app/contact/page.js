@@ -1,5 +1,5 @@
 import { buildMetadata } from "../../lib/seo";
-import { BUSINESS } from "../../lib/constants";
+import { BUSINESS, WHATSAPP_URL } from "../../lib/constants";
 import LocationMap from "../../components/LocationMap";
 
 export const metadata = buildMetadata({
@@ -23,10 +23,22 @@ export default function ContactPage() {
               <div style={{ color: "var(--muted)" }}>{BUSINESS.address}</div>
             </div>
 
+            {WHATSAPP_URL && (
+              <div style={{ marginBottom: 14 }}>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="pcb-btn-primary" style={{ display: "inline-block" }}>
+                  Chat on WhatsApp
+                </a>
+              </div>
+            )}
+
             {BUSINESS.phone && (
               <div style={{ marginBottom: 14 }}>
                 <div style={{ color: "var(--subtext)", fontSize: 12, marginBottom: 4 }}>Phone</div>
-                <a href={`tel:${BUSINESS.phone}`} style={{ color: "var(--pc-gold)", textDecoration: "none", fontWeight: 600 }}>
+                {/* Plain phone number kept visible (not styled as the
+                    primary button) — some people still prefer to just call
+                    or note the number down, and it matches the telephone
+                    field already declared in the site's schema.org data. */}
+                <a href={`tel:${BUSINESS.phone}`} style={{ color: "var(--muted)", textDecoration: "none" }}>
                   {BUSINESS.phone}
                 </a>
               </div>
