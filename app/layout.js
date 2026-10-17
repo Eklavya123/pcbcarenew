@@ -6,6 +6,15 @@ import Footer from "../components/Footer";
 import JsonLd from "../components/JsonLd";
 import { localBusinessSchema } from "../lib/seo";
 import { SITE_URL, BUSINESS, GA_MEASUREMENT_ID } from "../lib/constants";
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18518018282"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18518018282');
+</script>
 
 // Your App.js sets fontFamily:"'Inter',sans-serif" in several places (auth
 // screens etc.) but nothing in the CRA project ever actually loads Inter —
