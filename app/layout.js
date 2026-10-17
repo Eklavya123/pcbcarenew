@@ -6,15 +6,20 @@ import Footer from "../components/Footer";
 import JsonLd from "../components/JsonLd";
 import { localBusinessSchema } from "../lib/seo";
 import { SITE_URL, BUSINESS, GA_MEASUREMENT_ID } from "../lib/constants";
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18518018282"></script>
-<script>
+
+const GOOGLE_ADS_ID = "AW-18518018282";
+
+// One gtag.js loader serves both GA4 and Google Ads. The loader falls back
+// to the Ads ID so Ads still works if GA_MEASUREMENT_ID is ever empty.
+const GTAG_LOADER_ID = GA_MEASUREMENT_ID || GOOGLE_ADS_ID;
+
+const gtagInit = `
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  gtag('config', 'AW-18518018282');
-</script>
+  ${GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}');` : ""}
+  gtag('config', '${GOOGLE_ADS_ID}');
+`;
 
 // Your App.js sets fontFamily:"'Inter',sans-serif" in several places (auth
 // screens etc.) but nothing in the CRA project ever actually loads Inter —
@@ -58,24 +63,16 @@ export default function RootLayout({ children }) {
         </main>
         <Footer />
 
-        {/* Same GA4 property already wired up in the existing app's
-            index.html (G-7LJ17PXJ8C) — added here so this domain reports
-            into the same analytics account. Remove/replace the ID in
-            lib/constants.js if you'd rather track it as a separate property. */}
-        {GA_MEASUREMENT_ID && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}');
-              `}
-            </Script>
-          </>
-        )}
+        {/* Google tag: GA4 (G-7LJ17PXJ8C, from lib/constants.js) and
+            Google Ads (AW-18518018282) share one loader and one init. */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_LOADER_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {gtagInit}
+        </Script>
       </body>
     </html>
   );
-}
+    }
