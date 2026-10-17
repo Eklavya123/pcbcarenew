@@ -8,6 +8,7 @@ import { localBusinessSchema } from "../lib/seo";
 import { SITE_URL, BUSINESS, GA_MEASUREMENT_ID } from "../lib/constants";
 
 const GOOGLE_ADS_ID = "AW-18518018282";
+const GOOGLE_ADS_WHATSAPP_CONVERSION = "AW-18518018282/N8XdCM3p058dEOqRiv5E";
 
 // One gtag.js loader serves both GA4 and Google Ads. The loader falls back
 // to the Ads ID so Ads still works if GA_MEASUREMENT_ID is ever empty.
@@ -19,6 +20,21 @@ const gtagInit = `
   gtag('js', new Date());
   ${GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}');` : ""}
   gtag('config', '${GOOGLE_ADS_ID}');
+
+  // WhatsApp click conversion (Google Ads). Call from the WhatsApp button's
+  // onClick: window.gtag_report_conversion(whatsappUrl)
+  window.gtag_report_conversion = function (url) {
+    var callback = function () {
+      if (typeof url !== 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+      'send_to': '${GOOGLE_ADS_WHATSAPP_CONVERSION}',
+      'event_callback': callback
+    });
+    return false;
+  };
 `;
 
 // Your App.js sets fontFamily:"'Inter',sans-serif" in several places (auth
@@ -64,7 +80,8 @@ export default function RootLayout({ children }) {
         <Footer />
 
         {/* Google tag: GA4 (G-7LJ17PXJ8C, from lib/constants.js) and
-            Google Ads (AW-18518018282) share one loader and one init. */}
+            Google Ads (AW-18518018282) share one loader and one init.
+            Also defines window.gtag_report_conversion for WhatsApp clicks. */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_LOADER_ID}`}
           strategy="afterInteractive"
