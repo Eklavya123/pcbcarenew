@@ -21,20 +21,51 @@ const gtagInit = `
   ${GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}');` : ""}
   gtag('config', '${GOOGLE_ADS_ID}');
 
-  // WhatsApp click conversion (Google Ads). Call from the WhatsApp button's
-  // onClick: window.gtag_report_conversion(whatsappUrl)
-  window.gtag_report_conversion = function (url) {
-    var callback = function () {
-      if (typeof url !== 'undefined') {
-        window.location = url;
+  // WhatsApp click conversion (Google Ads).
+  // Automatically tracks a click on ANY WhatsApp link on the site
+  // (wa.me, api.whatsapp.com, web.whatsapp.com), so no changes are needed
+  // in individual buttons or components.
+  (function () {
+    var SEND_TO = '${GOOGLE_ADS_WHATSAPP_CONVERSION}';
+
+    function isWhatsAppLink(href) {
+      if (!href) return false;
+      href = String(href).toLowerCase();
+      return (
+        href.indexOf('wa.me') !== -1 ||
+        href.indexOf('api.whatsapp.com') !== -1 ||
+        href.indexOf('web.whatsapp.com') !== -1 ||
+        href.indexOf('whatsapp://') === 0
+      );
+    }
+
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (!el || !isWhatsAppLink(el.href)) return;
+      if (typeof gtag !== 'function') return;
+
+      var url = el.href;
+      var opensNewTab = el.target === '_blank';
+
+      // Link opens in a new tab: just record the conversion.
+      if (opensNewTab) {
+        gtag('event', 'conversion', { 'send_to': SEND_TO });
+        return;
       }
-    };
-    gtag('event', 'conversion', {
-      'send_to': '${GOOGLE_ADS_WHATSAPP_CONVERSION}',
-      'event_callback': callback
-    });
-    return false;
-  };
+
+      // Same-tab link: record the conversion, then open WhatsApp
+      // (with a 1 second fallback so the customer is never stuck).
+      e.preventDefault();
+      var done = false;
+      function go() {
+        if (done) return;
+        done = true;
+        window.location.href = url;
+      }
+      gtag('event', 'conversion', { 'send_to': SEND_TO, 'event_callback': go });
+      setTimeout(go, 1000);
+    }, true);
+  })();
 `;
 
 // Your App.js sets fontFamily:"'Inter',sans-serif" in several places (auth
@@ -81,7 +112,7 @@ export default function RootLayout({ children }) {
 
         {/* Google tag: GA4 (G-7LJ17PXJ8C, from lib/constants.js) and
             Google Ads (AW-18518018282) share one loader and one init.
-            Also defines window.gtag_report_conversion for WhatsApp clicks. */}
+            The init also tracks WhatsApp link clicks as a Google Ads conversion. */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_LOADER_ID}`}
           strategy="afterInteractive"
