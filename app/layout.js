@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ConsentBanner from "../components/ConsentBanner";
 import JsonLd from "../components/JsonLd";
 import { localBusinessSchema } from "../lib/seo";
 import { SITE_URL, BUSINESS, GA_MEASUREMENT_ID } from "../lib/constants";
@@ -17,6 +18,11 @@ const GTAG_LOADER_ID = GA_MEASUREMENT_ID || GOOGLE_ADS_ID;
 const gtagInit = `
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  // Privacy: every consent type starts DENIED. A saved "granted" choice (made with
+  // the banner, components/ConsentBanner.js) is replayed right away; otherwise
+  // Google stores nothing and the WhatsApp conversion below is sent cookieless.
+  gtag('consent', 'default', {ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', analytics_storage:'denied', wait_for_update:500});
+  try{var _c=JSON.parse(localStorage.getItem('pcb_consent_v1')||'null');if(_c&&_c.choice==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}}catch(e){}
   gtag('js', new Date());
   ${GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}');` : ""}
   gtag('config', '${GOOGLE_ADS_ID}');
@@ -109,6 +115,7 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+        <ConsentBanner />
 
         {/* Google tag: GA4 (G-7LJ17PXJ8C, from lib/constants.js) and
             Google Ads (AW-18518018282) share one loader and one init.

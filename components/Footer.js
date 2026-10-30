@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BUSINESS, SERVICES } from "../lib/constants";
+import PrivacySettingsButton from "./PrivacySettingsButton";
 
 export default function Footer() {
   return (
@@ -92,6 +93,18 @@ export default function Footer() {
           </div>
           <div style={{ marginBottom: 6 }}>
             <Link href="/return-refund-policy" style={{ color: "var(--subtext)", textDecoration: "none" }}>Return &amp; Refund Policy</Link>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <Link href="/privacy-policy" style={{ color: "var(--subtext)", textDecoration: "none" }}>Privacy Policy</Link>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <Link href="/cookie-policy" style={{ color: "var(--subtext)", textDecoration: "none" }}>Cookie Policy</Link>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <Link href="/grievance-redressal" style={{ color: "var(--subtext)", textDecoration: "none" }}>Grievance Redressal</Link>
+          </div>
+          <div style={{ marginBottom: 6 }}>
+            <PrivacySettingsButton />
           </div>
         </div>
       </div>
